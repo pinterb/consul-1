@@ -13,3 +13,5 @@ galaxy_info:
   categories:
     - clustering
     - monitoring
+  
+  dependencies: []
