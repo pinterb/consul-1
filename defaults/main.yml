@@ -1,6 +1,7 @@
 # install related variables
 consul_version: 0.4.1
-consul_dir: '/opt/consul_{{consul_version}}'
+consul_install_dir: '/opt'
+consul_dir: '{{consul_install_dir}}/consul_{{consul_version}}'
 consul_conf_dir: '{{consul_dir}}/conf.d'
 consul_data_dir: '{{consul_dir}}/data'
 consul_log_dir: '{{consul_dir}}/logs'
@@ -14,6 +15,7 @@ consul_bootstrap_expect: 2
 consul_supervisor_enabled: false
 consul_supervisord_config_dir: /etc/supervisor.d
 consul_join: []
+consul_prior_versions: []
 
 consul_root_cert_installed: false
 

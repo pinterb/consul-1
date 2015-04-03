@@ -1,0 +1,8 @@
+- name: determine if current version of consul is installed
+  stat: path={{consul_conf_dir}}/common.json
+  register: consul_curr_installation
+
+- debug: msg="Current version of Consul appears to be already installed & configured"
+  when: consul_curr_installation.stat.isreg is defined and consul_curr_installation.stat.isreg
+  
+  

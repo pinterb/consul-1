@@ -6,3 +6,11 @@
 - name: restart consul
   supervisorctl: name=consul state=restarted
   when: consul_supervisor_enabled and not ansible_os_family == 'Darwin'
+
+- name: start consul
+  supervisorctl: name=consul state=started
+  when: consul_supervisor_enabled and not ansible_os_family == 'Darwin'
+
+- name: stop consul
+  supervisorctl: name=consul state=stopped
+  when: consul_supervisor_enabled and not ansible_os_family == 'Darwin'
