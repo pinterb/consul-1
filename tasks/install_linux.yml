@@ -40,3 +40,17 @@
 
 - name: make consul available on the path
   command: update-alternatives --install "/usr/bin/consul" "consul" "{{consul_dir}}/bin/consul" 100
+
+- name: Install Python PIP (on Debian)
+  apt:
+    pkg: "{{item}}"
+    state: present
+  with_items:
+    - python-pip
+  when: ansible_os_family == "Debian"
+
+- name: install consul client sofware
+  pip: name={{item}}
+  with_items:
+    - 'python-consul'
+    - 'consulate'
