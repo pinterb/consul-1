@@ -1,0 +1,22 @@
+- name: flush handlers
+  meta: flush_handlers
+
+- name: determine if consul is installed
+  command: which consul 
+  register: consul_executable
+
+- name: pause for Consul to come online
+  wait_for: port={{ consul_http_port }} delay=10 state=started
+  when: consul_executable.stdout is defined and consul_executable.stdout != ""
+
+- debug: msg="Running check...Consul executable is in PATH"
+  when: consul_executable.stdout is defined and consul_executable.stdout != ""
+
+- name: consul info 
+  shell: "{{ consul_executable.stdout }} info && echo 'Consul is running'"
+  register: consul_info_check
+  when: consul_executable.stdout is defined and consul_executable.stdout != ""
+
+- fail: msg="Consul is not running "
+  when: consul_info_check.rc is defined and consul_info_check.rc != 0 
+

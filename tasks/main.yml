@@ -1,13 +1,16 @@
-- include: status_check.yml
+- include: install_check.yml
   tags:
     - status 
 
 - include: install.yml
-  when: not consul_curr_installation.stat.exists
+  when: skip_consul_install.stdout is not defined
   tags:
     - install
 
 - include: configure.yml
-  when: not consul_curr_installation.stat.exists
   tags:
     - configure
+
+- include: running_check.yml
+  tags:
+    - status 
